@@ -1,0 +1,251 @@
+:root {
+  --bg-color: white;
+
+  --nav-text-cl: #585858;
+  --main-bg: white;
+  --greet-cl: #c4c7c5;
+  --card-bg: #f0f4f9;
+  --card-cl: #585858;
+  --search-input-bg-cl: #f0f4f9;
+  --bottom-info: rgb(150, 142, 142);
+  --result-color: black;
+  --card-bg-hover: #d1d8e0;
+}
+
+/* when toggle dark button then change dark theme */
+[data-theme="dark"] {
+  --main-bg: rgb(27, 26, 26);
+  --result-color: rgb(255, 255, 255);
+  --bg-color: white;
+  --card-bg-hover: #2e2c2c;
+  --card-cl-hover: #494747;
+  /* --card-cl-hover: #494747; */
+  --nav-text-cl: #c5bbbb;
+  --greet-cl: #c4c7c5;
+  --card-bg: #464444;
+  --card-cl: whitesmoke;
+
+  --bottom-info: rgb(219, 210, 210);
+}
+
+.main {
+  background: var(--main-bg);
+  flex: 1;
+  min-height: 100vh;
+  padding-bottom: 17vh;
+  position: relative;
+}
+
+.main .nav {
+  display: flex;
+  background-color: var(--nav-bg-cl);
+  align-items: center;
+  justify-content: space-between;
+  font-size: 38px;
+  padding: 10px;
+  color: var(--nav-text-cl);
+  position: relative;
+}
+
+.nav i {
+  position: absolute;
+  top: 1rem;
+  right: 5rem;
+  font-size: 30px;
+}
+
+.main .nav img {
+  width: 44px;
+  border-radius: 50%;
+}
+
+.main-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.main .greet {
+  margin: 30px 0px;
+  font-size: 56px;
+  color: var(--greet-cl);
+  font-weight: 500;
+  padding: 15px;
+}
+
+.greet span {
+  background: -webkit-linear-gradient(16deg, #4b90ff, #ff5546);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 20px;
+  margin-bottom: 2.6rem;
+}
+
+.cards .card {
+  height: 200px;
+  padding: 15px;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.card img {
+  width: 30px;
+  padding: 5px;
+  position: absolute;
+  background: white;
+  border-radius: 20px;
+  bottom: 10px;
+  right: 10px;
+}
+
+.card p {
+  color: var(--card-cl);
+  font-size: 18px;
+  /* font-weight: 100; */
+}
+
+.card:hover {
+  background-color: var(--card-bg-hover);
+  color: var(--card-cl-hover);
+}
+
+/* main bottom div which includes input,icon */
+
+.main-bottom {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  max-width: 900px;
+  padding: 0px 20px;
+  margin: auto;
+  /* margin-bottom: 0.7rem; */
+}
+
+.main-bottom .search-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background-color: var(--search-input-bg-cl);
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.main-bottom img {
+  width: 24px;
+  cursor: pointer;
+}
+
+.search-box input {
+  /* position: relative; */
+  width: 75%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 18px;
+}
+
+/* icons div */
+.search-box div {
+  display: flex;
+  /* background: black; */
+  align-items: center;
+  margin: 0 5px;
+  justify-content: flex-end;
+  width: 15%;
+  gap: 15px;
+}
+
+.main .bottom-info {
+  margin: 8px auto;
+  font-size: 12px;
+  color: var(--bottom-info);
+  text-align: center;
+}
+
+/* result container */
+
+.result {
+  padding: 0 0.5rem;
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+.result::-webkit-scrollbar {
+  display: none;
+}
+
+.result-title {
+  display: flex;
+  text-transform: capitalize;
+  margin: 30px 0;
+  gap: 2rem;
+  align-items: center;
+  color: var(--result-color);
+  letter-spacing: 1px;
+}
+
+.result-title img {
+  width: 40px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.result-data {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+}
+
+.result-data img {
+  width: 50px;
+}
+
+.result-data p {
+  text-indent: 35px;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--result-color);
+}
+
+.loader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loader hr {
+  background-color: #c8d7e6;
+  border-radius: 7px;
+  border: none;
+  background: linear-gradient((to right, #d5dfe6, #ffffff, #2f678f));
+  background-size: 800px 50px;
+  height: 20px;
+  animation-name: loadingEffect;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+@keyframes loadingEffect {
+  0% {
+    background-position: -800px 0px;
+  }
+  100% {
+    background-position: 800px 50px;
+  }
+}
+
+/* dark theme styles */
