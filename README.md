@@ -20,7 +20,7 @@ A **Gemini AI Clone** built using **React.js** and the **Gemini AI API**. This a
 
 1️⃣ Clone the repository:  
 ```bash or npm
--git clone https://github.com/prasad-suku/gemini-ai-clone.git
+-git clone https://github.com/prasad-suku/GeminiAi-Clone-project.git
 -cd gemini-ai-clone
 
 -npm i  
