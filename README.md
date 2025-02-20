@@ -1,4 +1,5 @@
-# 🌟 Gemini AI Clone   **Link:https://geminiai-flash1-clone-free.netlify.app/ **
+# 🌟 Gemini AI Clone   
+Live Link: https://geminiai-flash1-clone-free.netlify.app/
 
 A **Gemini AI Clone** built using **React.js** and the **Gemini AI API**. This application allows users to ask queries and get AI-generated responses. It features a **dark/light mode toggle**, stores recent queries in **local storage**, and includes a **responsive navigation bar** for seamless user experience.  
 
