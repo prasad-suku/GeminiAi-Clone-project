@@ -1,8 +1,27 @@
-# React + Vite
+# 🌟 Gemini AI Clone  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **Gemini AI Clone** built using **React.js** and the **Gemini AI API**. This application allows users to ask queries and get AI-generated responses. It features a **dark/light mode toggle**, stores recent queries in **local storage**, and includes a **responsive navigation bar** for seamless user experience.  
 
-Currently, two official plugins are available:
+## 🚀 Features  
+- ✅ **Ask Queries:** Get AI-powered responses using the Gemini API  
+- ✅ **Dark & Light Mode:** User-friendly theme switching  
+- ✅ **Recent Queries Storage:** Saves user queries in local storage for easy access  
+- ✅ **Responsive UI:** Sleek and adaptable design with a navigation bar  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tech Stack  
+- **Frontend:** React.js  
+- **State Management:** Context API  
+- **API Integration:** Gemini AI API  
+- **Storage:** LocalStorage  
+
+
+
+## 📌 Getting Started  
+
+1️⃣ Clone the repository:  
+```bash or npm
+-git clone https://github.com/prasad-suku/gemini-ai-clone.git
+-cd gemini-ai-clone
+
+-npm i  
+-npm start
