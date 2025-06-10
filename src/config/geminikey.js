@@ -1,60 +1,4 @@
-// const gemini_key = "AIzaSyBABqDfvDaa4EEZM-FiipAZVd4gxaLD-IQ";
-
-// /*
-//  * Install the Generative AI SDK
-//  *
-//  * $ npm install @google/generative-ai
-//  */
-
-// import {
-//   GoogleGenerativeAI,
-//   HarmCategory,
-//   HarmBlockThreshold,
-// } from "@google/generative-ai";
-
-// const genAI = new GoogleGenerativeAI(gemini_key);
-
-// const model = genAI.getGenerativeModel({
-//   model: "gemini-1.5-flash",
-// });
-
-// const generationConfig = {
-//   temperature: 1,
-//   topP: 0.95,
-//   topK: 64,
-//   maxOutputTokens: 8192,
-//   responseMimeType: "text/plain",
-// };
-
-// async function run(prompt) {
-//   const chatSession = model.startChat({
-//     generationConfig,
-//     // safetySettings: Adjust safety settings
-//     // See https://ai.google.dev/gemini-api/docs/safety-settings
-//     history: [],
-//   });
-
-//   const result = (await chatSession.sendMessage(prompt)).response;
-//   // const response = result.response;
-
-//   console.log(result.text());
-//   // return this response variable data to where its called,
-//   //  this response data to store in context jsx file in onSent function
-//   return result.text();
-// }
-
-// // exporting run function default to proccesing users prompt
-// export default run;
-
-// new api keys and scripts
-
-/*
- * Install the Generative AI SDK
- *
- * $ npm install @google/generative-ai
- */
-
-const apikey = `AIzaSyDEItWxs_fKG7Gfc3Qim7Y87RDeYH_g2fM`;
+const apiKey = `AIzaSyAjqaOMpR4xTthEW1vc9pzIAz0NM2GkoyM`;
 
 import {
   GoogleGenerativeAI,
@@ -63,10 +7,14 @@ import {
 } from "@google/generative-ai";
 
 // const apiKey = process.env.GEMINI_API_KEY;
-const genAI = new GoogleGenerativeAI(apikey);
+if (!apiKey) {
+  throw new Error("GEMINI_API_KEY environment variable is required");
+}
+
+const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-pro-002",
+  model: "gemini-1.5-flash-8b",
 });
 
 const generationConfig = {
@@ -77,18 +25,68 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-let run = async (query) => {
-  const chatSession = model.startChat({
-    generationConfig,
-    // safetySettings: Adjust safety settings
-    // See https://ai.google.dev/gemini-api/docs/safety-settings
-    history: [],
-  });
+// Add safety settings to prevent harmful content
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  },
+];
 
-  const result = await chatSession.sendMessage(query);
-  console.log(result.response.text());
-  return result.response.text();
+// Add delay function for rate limiting
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const run = async (query) => {
+  try {
+    const chatSession = model.startChat({
+      generationConfig,
+      safetySettings,
+      history: [],
+    });
+
+    const result = await chatSession.sendMessage(query);
+    console.log(result.response.text());
+    return result.response.text();
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+
+    // Handle quota exceeded error specifically
+    if (error.message.includes("429") || error.message.includes("quota")) {
+      console.log("Rate limit exceeded. Waiting before retry...");
+      await delay(60000); // Wait 1 minute
+
+      // Optional: Retry once after delay
+      try {
+        const chatSession = model.startChat({
+          generationConfig,
+          safetySettings,
+          history: [],
+        });
+
+        const result = await chatSession.sendMessage(query);
+        return result.response.text();
+      } catch (retryError) {
+        throw new Error(
+          `Rate limit exceeded. Please try again later. Original error: ${retryError.message}`
+        );
+      }
+    }
+
+    // Re-throw other errors
+    throw error;
+  }
 };
-// run();
 
 export default run;
